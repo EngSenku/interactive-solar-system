@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Solar System</title>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Space+Mono&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/space.css">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+</head>
+<body>
+<div class="stars"></div>
+<div class="galaxy"></div>
+<div class="particles"></div>
+
+<div class="space-container">
+    <h1>Interactive Solar System</h1>
+    <div class="generated-text" id="generated-text">
+    </div>
+    <model-viewer
+            id="solar-system-model"
+            src="/static/Solar_system.glb"
+            autoplay
+            camera-controls
+            min-camera-orbit="auto auto 30%"
+            max-camera-orbit="auto auto 70%"
+            min-field-of-view="5deg"
+            max-field-of-view="150deg"
+            alt="Solar System"
+            animation-name="*"
+            dpr="1"
+            exposure="1.2"
+            shadow-intensity="1"
+            environment-intensity="1"
+            render-scale="1.5"
+            preload
+            disable-pan
+            interpolation-decay="200"
+            power-preference="high-performance"
+            quick-zoom
+            bounds="tight"
+            camera-target="0m 0m 0m"
+            style="width: 100%; height: 100vh;"
+            environment-image="https://modelviewer.dev/shared-assets/environments/spruit_sunrise_1k_HDR.hdr">
+    </model-viewer>
+    <div class="controls-container">
+        <div class="controls">
+            <button onclick="togglePlanets()">Planets</button>
+            <button onclick="toggleDrawContainer()">Draw Planet</button>
+            <button onclick="loadModel('sun')">sun</button>
+            <button onclick="loadModel('moon')">Moon (Luna)</button>
+            <button onclick="loadModel('Chelyabinsk Meteor')">Chelyabinsk Meteor</button>
+            <button onclick="loadModel('Halleys Comet')">Halley's Comet</button>
+            <button onclick="loadModel('67P_Churyumov-Gerasimenko')">67's Comet</button>
+            <button onclick="loadModel('solar system')">Solar system</button>
+        </div>
+    </div>
+
+    <div class="planets-container" id="planetsContainer">
+        <button onclick="loadModel('mercury')">mercury</button>
+        <button onclick="loadModel('venus')">venus</button>
+        <button onclick="loadModel('earth')">earth</button>
+        <button onclick="loadModel('mars')">mars</button>
+        <button onclick="loadModel('jupiter')">jupiter</button>
+        <button onclick="loadModel('saturn')">saturn</button>
+        <button onclick="loadModel('uranus')">uranus</button>
+        <button onclick="loadModel('neptune')">neptune</button>
+    </div>
+
+    <div class="draw-container" id="drawContainer">
+        <button onclick="loadModel('pluto')">pluto</button>
+        <button onclick="loadModel('ceres')">ceres</button>
+        <button onclick="loadModel('haumea')">haumea</button>
+        <button onclick="loadModel('makemake')">makemake</button>
+        <button onclick="loadModel('eris')">eris</button>
+
+
+    </div>
+
+
+    <script>
+        function loadModel(modelType) {
+            fetch('/get_model', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({model_type: modelType}),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Update the model-viewer src attribute
+                    document.getElementById('solar-system-model').src = data.model_path;
+                    // Generate and display text
+                    fetch('/generate_text', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({model_type: modelType}),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            document.getElementById('generated-text').innerText = data.generated_text;
+                        })
+                        .catch(error => console.error('Error generating text:', error));
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+
+
+    <button class="mute-btn" onclick="toggleMute()">
+        <i class="fas fa-volume-up"></i>
+    </button>
+
+    <audio id="spaceAudio" autoplay loop>
+        <source src="/static/Interstellar.mp3" type="audio/mp3">
+    </audio>
+    <div class="music-control" onclick="toggleMute()">
+        <div class="music-btn">
+            <i class="fas fa-volume-up"></i>
+        </div>
+    </div>
+
+    <h2>Solar System Data Visualization</h2>
+
+    <!-- Surface Temperature Radar Chart -->
+    <h4>Surface Temperature (°C)</h4>
+    <div id="temperature-chart" class="chart-container"></div>
+
+    <!-- Number of Moons Bar Chart -->
+    <h4>Number of Moons</h4>
+    <div id="moons-chart" class="chart-container"></div>
+
+    <!-- Surface Gravity Distance Chart -->
+    <h4>Surface Gravity (m/s²)</h4>
+    <div id="gravity-chart" class="chart-container"></div>
+
+    <!-- Orbital Period vs Rotation Period Bubble Chart -->
+    <h4>Orbital Period vs Rotation Period</h4>
+    <div id="orbital-rotation-chart" class="chart-container"></div>
+    <script>
+        // Get data passed from Flask
+        const chartData = JSON.parse('{{ chart_data|tojson|safe }}');
+
+        // Surface Temperature Radar Chart
+        Highcharts.chart('temperature-chart', {
+            chart: {
+                backgroundColor: 'transparent',
+                polar: true
+            },
+            title: {
+                text: 'Surface Temperature (°C)',
+                style: {
+                    color: 'white' // Set title color to white
+                }
+            },
+            xAxis: {
+                categories: chartData.temperature_data.categories,
+                tickmarkPlacement: 'on',
+                lineColor: 'white', // Set X-axis line color to white
+                labels: {
+                    style: {
+                        color: 'white' // Set X-axis label color to white
+                    }
+                }
+            },
+            yAxis: {
+                gridLineInterpolation: 'polygon',
+                min: -300,  // Adjusted for temperature range
+                max: 600,  // Adjusted for temperature range
+                lineColor: 'white', // Set X-axis line color to white
+                labels: {
+                    style: {
+                        color: 'white' // Set X-axis label color to white
+                    }
+                }
+            },
+            series: [{
+                name: 'Temperature (°C)',
+                data: chartData.temperature_data.data,
+                pointPlacement: 'on',
+                style: {
+                    color: 'white' // Set series name color to white
+                }
+
+
+            }],
+            legend: {
+                itemStyle: {
+                    color: 'white'  // Sets the legend text color to white
+                }
+            }
+        });
+
+        // Number of Moons Bar Chart
+        Highcharts.chart('moons-chart', {
+            chart: {
+                backgroundColor: 'transparent'
+            },
+            title: {
+                text: 'Number of Moons', style: {
+                    color: 'white' // Set title color to white
+                }
+            },
+            xAxis: {
+                categories: chartData.moons_data.categories,
+                lineColor: 'white', // Set X-axis line color to white
+                labels: {
+                    style: {
+                        color: 'white' // Set X-axis label color to white
+                    }
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Number of Moons', style: {
+                        color: 'white' // Set title color to white
+                    }
+                }, lineColor: 'white', // Set X-axis line color to white
+                labels: {
+                    style: {
+                        color: 'white' // Set X-axis label color to white
+                    }
+                }
+            },
+            series: [{
+                name: 'Moons',
+                data: chartData.moons_data.values,
+                type: 'bar',
+                style: {
+                    color: 'white' // Set series name color to white
+                }
+            }],
+            legend: {
+                itemStyle: {
+                    color: 'white'  // Sets the legend text color to white
+                }
+            }
+        });
+
+        // Surface Gravity Distance Chart
+        Highcharts.chart('gravity-chart', {
+            chart: {
+                backgroundColor: 'transparent'
+            },
+            title: {
+                text: 'Surface Gravity (m/s²)', style: {
+                    color: 'white' // Set title color to white
+                }
+            },
+            xAxis: {
+                categories: chartData.gravity_data.categories, lineColor: 'white', // Set X-axis line color to white
+                labels: {
+                    style: {
+                        color: 'white' // Set X-axis label color to white
+                    }
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Surface Gravity (m/s²)', style: {
+                        color: 'white' // Set title color to white
+                    }
+                }, lineColor: 'white', // Set X-axis line color to white
+                labels: {
+                    style: {
+                        color: 'white' // Set X-axis label color to white
+                    }
+                }
+            },
+            series: [{
+                name: 'Gravity',
+                data: chartData.gravity_data.values,
+                type: 'line',
+                style: {
+                    color: 'white' // Set series name color to white
+                }
+            }],
+            legend: {
+                itemStyle: {
+                    color: 'white'  // Sets the legend text color to white
+                }
+            }
+        });
+
+        // Orbital Period vs Rotation Period Bubble Chart
+        Highcharts.chart('orbital-rotation-chart', {
+            chart: {
+                type: 'bubble',
+                backgroundColor: 'transparent'
+            },
+            title: {
+                text: 'Orbital Period vs Rotation Period', style: {
+                    color: 'white' // Set title color to white
+                }
+            },
+            xAxis: {
+                title: {
+                    text: 'Orbital Period (Earth years)', style: {
+                        color: 'white' // Set title color to white
+                    }
+                }, lineColor: 'white', // Set X-axis line color to white
+                labels: {
+                    style: {
+                        color: 'white' // Set X-axis label color to white
+                    }
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Rotation Period (hours)', style: {
+                        color: 'white' // Set title color to white
+                    }
+                }, lineColor: 'white', // Set X-axis line color to white
+                labels: {
+                    style: {
+                        color: 'white' // Set X-axis label color to white
+                    }
+                }
+            },
+            series: [
+                {
+                    name: 'Planet',
+                    style: {
+                        color: 'white' // Set series name color to white
+                    },
+                    data: chartData.orbital_rotation_data.filter(d => d.type === "Planet").map(d => ({
+                        x: d.x,
+                        y: d.y,
+                        z: d.z,
+                        name: d.name
+                    }))
+                },
+                {
+                    name: 'Dwarf Planet',
+                    marker: {
+                        fillColor: 'rgba(255, 255, 0, 0.5)', // Transparent yellow for the middle
+                        lineColor: 'yellow', // Yellow for the outer circle
+                        lineWidth: 1 // Thickness of the outer circle
+                    }, // Set color for planets
+                    data: chartData.orbital_rotation_data.filter(d => d.type === "Dwarf Planet").map(d => ({
+                        x: d.x,
+                        y: d.y,
+                        z: d.z,
+                        name: d.name
+                    }))
+                }
+            ],
+            legend: {
+                itemStyle: {
+                    color: 'white'  // Sets the legend text color to white
+                }
+            },
+            plotOptions: {
+                bubble: {
+                    displayNegative: false,
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.name}</b><br/>Orbital Period: {point.x} years<br/>Rotation Period: {point.y} hours'
+                    }
+                }
+            }
+        });
+    </script>
+
+    <h3>Image/Audio Manipulation</h3>
+    <div class="upload-container">
+
+        <div class="upload-box">
+            <form action="/process-audio" method="post" enctype="multipart/form-data">
+                <h5>Audio Generation</h5>
+                <label for="audio" class="custom-file-label">Upload Audio</label>
+                <input type="file" id="audio" name="audio" accept=".wav" required hidden>
+                <button type="submit">Apply Alien Effect</button>
+            </form>
+        </div>
+
+        <div class="upload-box">
+            <form action="/process-image" method="post" enctype="multipart/form-data">
+                <h5>Image Processing</h5>
+                <label for="file" class="custom-file-label">Upload Image</label>
+                <input type="file" id="file" name="file" accept="image/*" required hidden>
+                <label for="background">Choose Background:</label>
+                <select id="background" name="background">
+                    <option value="space">Space</option>
+                    <option value="solar_system">Solar System</option>
+                </select>
+                <button type="submit">Change Image Background</button>
+            </form>
+        </div>
+    </div>
+    <script src="/static/space.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+Flask==3.0.3
+pandas==2.2.2
+librosa==0.10.2.post1
+soundfile==0.12.1
+numpy==1.26.4
+rembg==2.0.58
+pillow==10.4.0
+pydub==0.25.1
+scikit-learn==1.5.2
+onnxruntime==1.19.2

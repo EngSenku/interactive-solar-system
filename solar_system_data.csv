@@ -1,0 +1,14 @@
+Name,Type,Diameter (km),Distance from Sun (million km),Orbital Period (Earth years),Rotation Period (hours),Moons,Surface Temperature (°C),Surface Gravity (m/s²),Mass (10^24 kg)
+Mercury,Planet,4880,57.9,0.24,1407.6,0,127,3.7,0.33
+Venus,Planet,12104,108.2,0.62,5832.5,0,464,8.87,4.87
+Earth,Planet,12742,149.6,1.00,23.9,1,15,9.81,5.97
+Mars,Planet,6779,227.9,1.88,24.6,2,-65,3.71,0.64
+Jupiter,Planet,139820,778.5,11.86,9.9,95,-108,24.79,1898
+Saturn,Planet,116460,1433.5,29.46,10.7,146,-139,10.44,568
+Uranus,Planet,50724,2872.5,84.01,17.2,27,-197,8.87,86.8
+Neptune,Planet,49244,4495.1,164.79,16.1,14,-201,11.15,102
+Pluto,Dwarf Planet,2377,5906.4,248.00,153.3,5,-229,0.62,0.013
+Ceres,Dwarf Planet,940,413.7,4.60,9.1,0,-105,0.28,0.00094
+Haumea,Dwarf Planet,1632,6452.0,285.00,3.9,2,-241,0.44,0.004
+Makemake,Dwarf Planet,1430,6847.0,309.00,22.5,1,-239,0.5,0.003
+Eris,Dwarf Planet,2326,10120.0,557.00,25.9,1,-243,0.82,0.0025
