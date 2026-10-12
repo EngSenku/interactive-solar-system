@@ -2,10 +2,11 @@
 
 An interactive 3D solar system visualization built with Flask and Model Viewer. Explore planets, dwarf planets, comets, and meteors in 3D, visualize solar system data with interactive charts, generate AI-powered text about celestial bodies, apply alien voice effects to audio, and remove backgrounds from images.
 
-![Python](https://img.shields.io/badge/Python-3.12.8-blue?style=for-the-badge&logo=python)
-![Flask](https://img.shields.io/badge/Flask-3.0.3-black?style=for-the-badge&logo=flask)
-![Three.js](https://img.shields.io/badge/Model%20Viewer-3D-orange?style=for-the-badge)
-![Highcharts](https://img.shields.io/badge/Highcharts-Charts-2F9CFF?style=for-the-badge)
+![Python](https://img.shields.io/badge/python-3.12.8-blue)
+![Flask](https://img.shields.io/badge/flask-3.0.3-black)
+![Model Viewer](https://img.shields.io/badge/model%20viewer-3D-orange)
+![Highcharts](https://img.shields.io/badge/highcharts-charts-2F9CFF)
+![License](https://img.shields.io/badge/license-MIT-green)
 
 ## About
 
