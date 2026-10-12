@@ -26,7 +26,7 @@ An interactive 3D solar system visualization built with Flask and model-viewer. 
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/EngSenku/interactive-solar-system.git
 cd interactive-solar-system
 ```
 
@@ -79,5 +79,5 @@ Open your browser and navigate to `http://localhost:5000`.
 
 ## Notes
 
-- Large media files (videos) and reports from the original submission are not included in this repository.
+- This repository contains only the source code and assets needed to run the project.
 - Uploaded files are stored temporarily in the `uploads/` directory.
