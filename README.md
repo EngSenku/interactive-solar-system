@@ -7,9 +7,9 @@ An interactive 3D solar system visualization built with Flask and Model Viewer. 
 ![Three.js](https://img.shields.io/badge/Model%20Viewer-3D-orange?style=for-the-badge)
 ![Highcharts](https://img.shields.io/badge/Highcharts-Charts-2F9CFF?style=for-the-badge)
 
-## About the Project
+## About
 
-This project was developed in September 2025 as part of a creative thinking assignment. It combines 3D visualization, data analytics, and creative media processing to create an interactive educational experience about our solar system.
+This project is an interactive web application that allows users to explore the solar system in 3D. It was developed in September 2025 as a creative thinking project, combining 3D visualization, data analytics, and media processing to create an engaging educational experience about our solar system.
 
 ## Features
 
