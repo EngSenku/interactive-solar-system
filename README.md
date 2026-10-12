@@ -81,6 +81,7 @@ interactive-solar-system/
 ├── solar_system_data.csv    # Celestial body data and statistics
 ├── requirements.txt         # Python dependencies
 ├── .gitignore               # Git ignore rules
+├── LICENSE                  # MIT License
 ├── README.md               # Project documentation
 ├── backgrounds/            # Background images for image processing
 │   ├── solar_system_background.jpg
@@ -94,6 +95,10 @@ interactive-solar-system/
 │   └── index.html          # Main application template
 └── uploads/                # Temporary storage for processed files
 ```
+
+## License
+
+Released under the [MIT License](LICENSE).
 
 ## Technologies Used
 
