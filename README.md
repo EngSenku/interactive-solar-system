@@ -96,10 +96,6 @@ interactive-solar-system/
 └── uploads/                # Temporary storage for processed files
 ```
 
-## License
-
-Released under the [MIT License](LICENSE).
-
 ## Technologies Used
 
 - Backend: [Flask](https://flask.palletsprojects.com/) - Web framework
@@ -110,7 +106,6 @@ Released under the [MIT License](LICENSE).
 - Data Visualization: [Highcharts](https://www.highcharts.com/)
 - Frontend: HTML5, CSS3, JavaScript (ES6+)
 
-## Notes
+## License
 
-- This repository contains only the source code and assets needed to run the project.
-- Uploaded files are temporarily stored in the `uploads/` directory and are not tracked in git.
+Released under the [MIT License](LICENSE).
