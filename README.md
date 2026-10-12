@@ -7,21 +7,25 @@ An interactive 3D solar system visualization built with Flask and Model Viewer. 
 ![Three.js](https://img.shields.io/badge/Model%20Viewer-3D-orange?style=for-the-badge)
 ![Highcharts](https://img.shields.io/badge/Highcharts-Charts-2F9CFF?style=for-the-badge)
 
-## ✨ Features
+## About the Project
 
-- **3D Visualization**: Interactive solar system rendered with WebGL using `<model-viewer>`, featuring all planets, dwarf planets, comets, and meteors
-- **Data Visualization**: Dynamic charts powered by Highcharts showing surface temperatures, moon counts, gravity, and orbital vs. rotation periods
-- **AI Text Generation**: N-gram language model that generates contextual text based on selected celestial objects
-- **Audio Processing**: Upload audio files and apply an alien voice effect using pitch shifting and modulation
-- **Image Processing**: Remove backgrounds from images and composite them with space-themed backgrounds
-- **Immersive UI**: Animated starfield, particle effects, and ambient space audio
+This project was developed in September 2025 as part of a creative thinking assignment. It combines 3D visualization, data analytics, and creative media processing to create an interactive educational experience about our solar system.
 
-## 📅 Project Info
+## Features
 
-- **Developed**: September 2025
-- **Status**: Working demo
+- 3D Visualization: Interactive solar system rendered with WebGL using `<model-viewer>`, featuring all planets, dwarf planets, comets, and meteors
+- Data Visualization: Dynamic charts powered by Highcharts showing surface temperatures, moon counts, gravity, and orbital vs. rotation periods
+- AI Text Generation: N-gram language model that generates contextual text based on selected celestial objects
+- Audio Processing: Upload audio files and apply an alien voice effect using pitch shifting and modulation
+- Image Processing: Remove backgrounds from images and composite them with space-themed backgrounds
+- Immersive UI: Animated starfield, particle effects, and ambient space audio
 
-## 🚀 Getting Started
+## Project Info
+
+- Developed: September 2025
+- Status: Working demo
+
+## Getting Started
 
 ### Prerequisites
 
@@ -30,14 +34,14 @@ An interactive 3D solar system visualization built with Flask and Model Viewer. 
 
 ### Installation
 
-1. **Clone the repository**
+1. Clone the repository
 
    ```bash
    git clone https://github.com/EngSenku/interactive-solar-system.git
    cd interactive-solar-system
    ```
 
-2. **Create and activate a virtual environment**
+2. Create and activate a virtual environment
 
    ```bash
    python -m venv venv
@@ -46,17 +50,17 @@ An interactive 3D solar system visualization built with Flask and Model Viewer. 
    - On Windows: `venv\Scripts\activate`
    - On macOS/Linux: `source venv/bin/activate`
 
-3. **Install dependencies**
+3. Install dependencies
 
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **Install FFmpeg**
+4. Install FFmpeg
 
-   - **Ubuntu/Debian**: `sudo apt install ffmpeg`
-   - **macOS**: `brew install ffmpeg`
-   - **Windows**: Download from [ffmpeg.org](https://ffmpeg.org/download.html) and add to PATH
+   - Ubuntu/Debian: `sudo apt install ffmpeg`
+   - macOS: `brew install ffmpeg`
+   - Windows: Download from [ffmpeg.org](https://ffmpeg.org/download.html) and add to PATH
 
 ### Usage
 
@@ -68,7 +72,7 @@ python app.py
 
 Open your browser and navigate to [http://localhost:5000](http://localhost:5000).
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 interactive-solar-system/
@@ -90,17 +94,17 @@ interactive-solar-system/
 └── uploads/                # Temporary storage for processed files
 ```
 
-## 🛠️ Technologies Used
+## Technologies Used
 
-- **Backend**: [Flask](https://flask.palletsprojects.com/) - Web framework
-- **Data Processing**: [Pandas](https://pandas.pydata.org/), [NumPy](https://numpy.org/), [scikit-learn](https://scikit-learn.org/)
-- **Audio Processing**: [librosa](https://librosa.org/), [pydub](https://github.com/jiaaro/pydub), [soundfile](https://python-soundfile.readthedocs.io/)
-- **Image Processing**: [Pillow](https://python-pillow.org/), [rembg](https://github.com/danielgatis/rembg) (ONNX Runtime)
-- **3D Rendering**: [Model Viewer](https://modelviewer.dev/) by Google
-- **Data Visualization**: [Highcharts](https://www.highcharts.com/)
-- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
+- Backend: [Flask](https://flask.palletsprojects.com/) - Web framework
+- Data Processing: [Pandas](https://pandas.pydata.org/), [NumPy](https://numpy.org/), [scikit-learn](https://scikit-learn.org/)
+- Audio Processing: [librosa](https://librosa.org/), [pydub](https://github.com/jiaaro/pydub), [soundfile](https://python-soundfile.readthedocs.io/)
+- Image Processing: [Pillow](https://python-pillow.org/), [rembg](https://github.com/danielgatis/rembg) (ONNX Runtime)
+- 3D Rendering: [Model Viewer](https://modelviewer.dev/) by Google
+- Data Visualization: [Highcharts](https://www.highcharts.com/)
+- Frontend: HTML5, CSS3, JavaScript (ES6+)
 
-## 📝 Notes
+## Notes
 
 - This repository contains only the source code and assets needed to run the project.
 - Uploaded files are temporarily stored in the `uploads/` directory and are not tracked in git.
